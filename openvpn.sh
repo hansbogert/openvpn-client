@@ -249,5 +249,6 @@ else
     [[ -e $conf ]] || { echo "ERROR: VPN not configured!"; sleep 120; }
     [[ -e $cert ]] || grep -q '<ca>' $conf ||
         { echo "ERROR: VPN CA cert missing!"; sleep 120; }
-    exec sg vpn -c "openvpn --cd $dir --config $conf"
+    newgrp vpn
+    exec openvpn --cd $dir --config $conf
 fi
